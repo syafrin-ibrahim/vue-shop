@@ -19,7 +19,18 @@
                 <img :src="product.gallery[0].photo" alt="" />
                 <ul>
                   <li class="w-icon active">
-                    <a href="#"><i class="icon_bag_alt"></i></a>
+                    <a
+                      href="#"
+                      @click="
+                        storeCart(
+                          product.id,
+                          product.name,
+                          product.price,
+                          product.gallery[0].photo
+                        )
+                      "
+                      ><i class="icon_bag_alt"></i
+                    ></a>
                   </li>
                   <li class="quick-view">
                     <router-link to="/product">+ Quick View</router-link>
@@ -59,13 +70,35 @@ export default {
   data() {
     return {
       products: [],
+      cartUser: [],
     };
+  },
+  methods: {
+    storeCart(idProduct, name, price, photo) {
+      var productStored = {
+        id: idProduct,
+        name: name,
+        price: price,
+        photo: photo,
+      };
+      this.cartUser.push(productStored);
+      const parsed = JSON.stringify(this.cartUser);
+      localStorage.setItem("cartUser", parsed);
+      window.location.reload();
+    },
   },
   mounted() {
     axios
       .get("http://localhost/backend-shop/public/api/products")
       .then((res) => (this.products = res.data.data.data))
       .catch((err) => console.log(err));
+    if (localStorage.getItem("cartUser")) {
+      try {
+        this.cartUser = JSON.parse(localStorage.getItem("cartUser"));
+      } catch (e) {
+        localStorage.removeItem("cartUser");
+      }
+    }
   },
 };
 </script>

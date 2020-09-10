@@ -51,7 +51,7 @@
                                 <h6>{{ cart.name }}</h6>
                               </div>
                             </td>
-                            <td class="si-close">
+                            <td @click="removeItem(cart.id)" class="si-close">
                               <i class="ti-close"></i>
                             </td>
                           </tr>
@@ -65,10 +65,15 @@
                     </div>
                     <div class="select-total">
                       <span>total:</span>
-                      <h5>$120.00</h5>
+                      <h5>{{ totalHarga }}</h5>
                     </div>
                     <div class="select-button">
-                      <a href="#" class="primary-btn view-card">VIEW CARD</a>
+                      <a href="#" class="primary-btn view-card"
+                        ><router-link to="/cart" style="color:#fff"
+                          >VIEW CARD
+                        </router-link></a
+                      >
+
                       <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
                     </div>
                   </div>
@@ -90,6 +95,18 @@ export default {
       cartUser: [],
     };
   },
+  methods: {
+    removeItem(idcart) {
+      let cartStorage = JSON.parse(localStorage.getItem("cartUser"));
+      let itemCart = cartStorage.map((itemCart) => itemCart.id);
+      let index = itemCart.findIndex((id) => id == idcart);
+      this.cartUser.splice(index, 1);
+
+      const parsed = JSON.stringify(this.cartUser);
+      localStorage.setItem("cartUser", parsed);
+      window.location.reload();
+    },
+  },
   mounted() {
     if (localStorage.getItem("cartUser")) {
       try {
@@ -98,6 +115,13 @@ export default {
         localStorage.removeItem("cartUser");
       }
     }
+  },
+  computed: {
+    totalHarga() {
+      return this.cartUser.reduce(function(items, data) {
+        return items + data.price;
+      }, 0);
+    },
   },
 };
 </script>

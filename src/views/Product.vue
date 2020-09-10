@@ -58,22 +58,21 @@
                     <h4>{{ productDetails.price }}</h4>
                   </div>
                   <div class="quantity">
-                    <!-- <router-link to="/cart" class="primary-btn pd-cart"
-                      >Add To Cart</router-link
-                    > -->
-                    <a
-                      @click="
-                        storeCart(
-                          productDetails.id,
-                          productDetails.name,
-                          productDetails.price,
-                          productDetails.gallery[0].photo
-                        )
-                      "
-                      href="#"
-                      class="primary-btn pd-cart"
-                      >Add To Cart</a
-                    >
+                    <router-link to="/cart" class="primary-btn pd-cart">
+                      <a
+                        @click="
+                          storeCart(
+                            productDetails.id,
+                            productDetails.name,
+                            productDetails.price,
+                            productDetails.gallery[0].photo
+                          )
+                        "
+                        href="#"
+                        class="primary-btn pd-cart"
+                        >Add To Cart</a
+                      >
+                    </router-link>
                   </div>
                 </div>
               </div>
