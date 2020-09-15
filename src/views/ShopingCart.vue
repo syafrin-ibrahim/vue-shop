@@ -136,7 +136,9 @@
                   <!-- <router-link to="/success" class="proceed-btn"
                     >I ALREADY PAID</router-link
                   > -->
-                  <a href="#" @click="checkout">I Already Paid</a>
+                  <a href="#" @click="checkout" class="proceed-btn"
+                    >I Already Paid</a
+                  >
                 </div>
               </div>
             </div>
