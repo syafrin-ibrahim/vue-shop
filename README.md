@@ -1,5 +1,5 @@
 # vue-shop
-
+aplikasi frontend vue js & backend laravel ( e commerce simple ) bwa 
 ## Project setup
 ```
 npm install
